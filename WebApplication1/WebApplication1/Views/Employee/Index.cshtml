@@ -1,0 +1,34 @@
+﻿@model List<Employee>
+
+<h2>Employee Status</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Employee Type</th>
+            <th>Vacation Days</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.GetType().Name</td>
+                <td>@employee.VacationDays</td>
+                <td>
+                    <form asp-controller="Employee" asp-action="Work" method="post">
+                        <input type="hidden" name="employeeIndex" value="@Model.IndexOf(employee)" />
+                        <input type="number" name="days" placeholder="Days Worked" />
+                        <button type="submit">Work</button>
+                    </form>
+                    <form asp-controller="Employee" asp-action="TakeVacation" method="post">
+                        <input type="hidden" name="employeeIndex" value="@Model.IndexOf(employee)" />
+                        <input type="number" name="days" placeholder="Vacation Days" />
+                        <button type="submit">Take Vacation</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
